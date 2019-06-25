@@ -710,6 +710,63 @@ module.exports = function (css) {
 
 /***/ }),
 
+/***/ "./src/components/button/button.tsx":
+/*!******************************************!*\
+  !*** ./src/components/button/button.tsx ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __webpack_require__(/*! react */ "react");
+class Button extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { label: "click me" };
+    }
+    render() {
+        return (React.createElement("button", { className: "btn btn-primary btn-sm", onClick: this._onButtonClick }, "click me"));
+    }
+    _onButtonClick(e) {
+        alert("button was clicked!");
+    }
+}
+exports.Button = Button;
+
+
+/***/ }),
+
+/***/ "./src/components/header/header.tsx":
+/*!******************************************!*\
+  !*** ./src/components/header/header.tsx ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __webpack_require__(/*! react */ "react");
+class Header extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (React.createElement("h1", null,
+            "Hello from ",
+            this.props.compiler,
+            " and ",
+            this.props.framework,
+            "!"));
+    }
+}
+exports.Header = Header;
+
+
+/***/ }),
+
 /***/ "./src/components/hello/hello.tsx":
 /*!****************************************!*\
   !*** ./src/components/hello/hello.tsx ***!
@@ -721,13 +778,43 @@ module.exports = function (css) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(/*! react */ "react");
+const timer_1 = __webpack_require__(/*! ../timer/timer */ "./src/components/timer/timer.tsx");
+const button_1 = __webpack_require__(/*! ../button/button */ "./src/components/button/button.tsx");
+const header_1 = __webpack_require__(/*! ../header/header */ "./src/components/header/header.tsx");
 class Hello extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (React.createElement("div", null,
+            React.createElement(header_1.Header, { compiler: "Typescript", framework: "React JS" }),
+            React.createElement(timer_1.Timer, null),
+            React.createElement(button_1.Button, null)));
+    }
+}
+exports.Hello = Hello;
+
+
+/***/ }),
+
+/***/ "./src/components/timer/timer.tsx":
+/*!****************************************!*\
+  !*** ./src/components/timer/timer.tsx ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __webpack_require__(/*! react */ "react");
+class Timer extends React.Component {
     constructor(props) {
         super(props);
         this.state = { date: new Date() };
     }
     componentDidMount() {
-        this.timerID = setInterval(() => this.tick(), 1000);
+        this.timerID = setInterval(() => this._tick(), 1000);
         console.log("componentDidMount");
     }
     componentWillUnmount() {
@@ -735,24 +822,17 @@ class Hello extends React.Component {
         console.log("componentWillUnmount");
     }
     render() {
-        return (React.createElement("div", null,
-            React.createElement("h1", null,
-                "Hello from ",
-                this.props.compiler,
-                " and ",
-                this.props.framework,
-                "!"),
-            React.createElement("h2", null,
-                "It is ",
-                this.state.date.toLocaleTimeString())));
+        return (React.createElement("h2", null,
+            "It is ",
+            this.state.date.toLocaleTimeString()));
     }
-    tick() {
+    _tick() {
         this.setState({
             date: new Date()
         });
     }
 }
-exports.Hello = Hello;
+exports.Timer = Timer;
 
 
 /***/ }),
@@ -803,7 +883,7 @@ const ReactDOM = __webpack_require__(/*! react-dom */ "react-dom");
 __webpack_require__(/*! ./index.css */ "./src/index.css");
 const hello_1 = __webpack_require__(/*! ./components/hello/hello */ "./src/components/hello/hello.tsx");
 ReactDOM.render(React.createElement("div", { className: "container" },
-    React.createElement(hello_1.Hello, { compiler: "Typescript", framework: "React JS" })), document.getElementById("example"));
+    React.createElement(hello_1.Hello, null)), document.getElementById("example"));
 
 
 /***/ }),
