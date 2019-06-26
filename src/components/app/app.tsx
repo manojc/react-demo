@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Timer } from "../timer/timer";
-import { Button } from "../button/button";
+import Timer from "../timer/timer";
+import Button from "../button/button";
 import { Header } from "../header/header";
 
-export class Hello extends React.Component<{}> {
+export class App extends React.Component<{}> {
 
     public constructor(props: any) {
         super(props);
@@ -14,7 +14,7 @@ export class Hello extends React.Component<{}> {
             <div>
                 <Header compiler="Typescript" framework="React JS" />
                 <Timer />
-                <Button />
+                <Button label="toggle timer" />
             </div>
         );
     }

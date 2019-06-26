@@ -1,22 +1,41 @@
 import * as React from "react";
+import { connect } from "react-redux";
 
-export class Button extends React.Component<{}, { label: string }> {
+interface Props {
+    label?: string,
+    buttonState?: boolean,
+    showTime?: Function
+    hideTime?: Function
+};
+
+class Button extends React.Component<Props, { label: string }> {
 
     public constructor(props: any) {
         super(props);
-        this.state = { label: "click me" };
     }
 
     public render(): React.ReactNode {
         return (
-            <button className="btn btn-primary btn-sm" onClick={this._onButtonClick}>
-                click me
+            <button className="btn btn-primary btn-sm" onClick={this._onButtonClick.bind(this)}>
+                {this.props.label}
             </button>
         );
     }
 
     private _onButtonClick(e: any): void {
-        alert("button was clicked!");
+        !this.props.buttonState ? this.props.showTime() : this.props.hideTime();
     }
-
 }
+
+function mapStateToProps(state: any): Object {
+    return { buttonState: state.buttonState };
+}
+
+function mapDispatchToProps(dispatch: (action: { type: string, payload: any }) => void): Object {
+    return {
+        showTime: () => dispatch({ type: "SHOW", payload: true }),
+        hideTime: () => dispatch({ type: "HIDE", payload: false }),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Button);

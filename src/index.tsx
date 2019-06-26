@@ -1,12 +1,22 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-// local imports
+import { Store, createStore, combineReducers, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import { ReduxEmitter } from "kuker-emitters";
+import { App } from "./components/app/app";
+import { buttonToggleReducer } from "./reducers/app-reducer";
 import "./index.css";
-import { Hello } from "./components/hello/hello";
+
+const store: Store = createStore(
+    combineReducers({ buttonState: buttonToggleReducer }),
+    applyMiddleware(ReduxEmitter())
+);
 
 ReactDOM.render(
-    <div className="container">
-        <Hello />
-    </div>,
+    <Provider store={store}>
+        <div className="container">
+            <App />
+        </div>
+    </Provider>,
     document.getElementById("example")
 );
