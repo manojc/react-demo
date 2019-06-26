@@ -6288,7 +6288,12 @@ class Timer extends React.Component {
         this.state = { date: new Date() };
     }
     render() {
-        return (React.createElement("h2", { className: !!this.props.buttonState ? "" : "hidden" },
+        if (!this.props.buttonState) {
+            clearTimeout(this.timerID);
+            return "";
+        }
+        this.timerID = setInterval(() => this._start(), 1000);
+        return (React.createElement("h2", null,
             "It is ",
             this.state.date.toLocaleTimeString()));
     }
@@ -6385,7 +6390,7 @@ function buttonToggleReducer(state = true, action) {
         case "HIDE":
             return false;
         default:
-            return false;
+            return true;
     }
 }
 exports.buttonToggleReducer = buttonToggleReducer;

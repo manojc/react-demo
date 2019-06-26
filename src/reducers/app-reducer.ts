@@ -5,6 +5,6 @@ export function buttonToggleReducer(state: boolean = true, action: { type: strin
         case "HIDE":
             return false;
         default:
-            return false;
+            return true;
     }
 }

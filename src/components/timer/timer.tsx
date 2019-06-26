@@ -18,8 +18,13 @@ class Timer extends React.Component<Props, { date: Date }> {
     }
 
     public render(): React.ReactNode {
+        if (!this.props.buttonState) {
+            clearTimeout(this.timerID);
+            return "";
+        }
+        this.timerID = setInterval(() => this._start(), 1000);
         return (
-            <h2 className={!!this.props.buttonState ? "" : "hidden"}>
+            <h2>
                 It is {this.state.date.toLocaleTimeString()}
             </h2>
         );
